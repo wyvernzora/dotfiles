@@ -13,6 +13,9 @@
 #
 
 bb-task-def 'brew-provision'
+bb-task-def 'brew-taps'
+bb-task-def 'brew-packages'
+bb-task-def 'brew-casks'
 
 
 brew-provision() {
@@ -35,9 +38,17 @@ brew-provision() {
   fi
 
 
-  #
-  # Install brew taps
-  #
+  bb-task-depends 'brew-taps' 'brew-packages' 'brew-casks'
+
+}
+
+
+
+#
+# Install brew taps
+#
+brew-taps() {
+
   while read tap; do
     if ! bb-brew-repo? "$tap"; then
       brew tap "$tap" &> /dev/null;
@@ -47,10 +58,17 @@ brew-provision() {
     fi
   done < brew/taps.txt;
 
+}
 
-  #
-  # Install brew packages
-  #
+
+
+#
+# Install brew packages
+#
+brew-packages() {
+
+  bb-task-depends 'brew-taps'
+
   while read pkg; do
 
     #
@@ -69,10 +87,15 @@ brew-provision() {
     fi
   done < brew/packages.txt;
 
+}
 
-  #
-  # TODO Install cask packages
-  #
 
+
+#
+# TODO Install cask packages
+#
+brew-casks() {
+
+  bb-task-depends 'brew-packages'
 
 }
