@@ -1,0 +1,14 @@
+coreutils --with-default-names
+findutils --with-default-names
+gnu-indent --with-default-names
+gnu-sed --with-default-names
+gnutls --with-default-names
+grep --with-default-names
+gnu-tar --with-default-names
+gawk
+zsh
+git
+heroku-toolbelt
+direnv
+wget
+argon/mas/mas

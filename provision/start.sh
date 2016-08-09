@@ -64,4 +64,4 @@ bb-log-error "Error"
 #
 # Start the task
 #
-bb-task-run 't-bootstrap' 't-symlink'
+bb-task-run 't-brew-pkgs'

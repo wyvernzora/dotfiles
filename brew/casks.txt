@@ -1,0 +1,14 @@
+atom
+dropbox
+google-chrome
+caffeine
+iterm2
+vlc
+nylas-n1
+steam
+mplayerx
+kaleidoscope
+font-input
+font-open-sans
+font-roboto
+font-roboto-slab

@@ -29,3 +29,11 @@ function array_contains? () {
   done
   return ${FALSE}
 }
+
+
+#
+# Get the fist argument
+#
+function first_arg() {
+  echo "$1"
+}
