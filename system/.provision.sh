@@ -24,13 +24,13 @@ system-essentials() {
   # Debian
   #
   if bb-apt?; then
-    bb-apt-install build-essential git zsh
+    bb-apt-install $( tr '\n' '' < system/essentials.debian.txt )
 
   #
   # CentOS/RHEL
   #
   elif bb-yum?; then
-    bb-yum-install gcc gcc-c++ make openssl-devel git zsh
+    bb-yum-install $( tr '\n' '' < system/essentials.centos.txt )
 
   #
   # macOS
@@ -39,6 +39,9 @@ system-essentials() {
     if [ -z "$( "xcode-select" -p )" ]; then
       xcode-select --install
     fi
+    source system/provision.macos.sh
+
+
   fi
 
 }

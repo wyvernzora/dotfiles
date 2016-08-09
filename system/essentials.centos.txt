@@ -1,0 +1,10 @@
+gcc
+gcc-c++
+make
+openssl-devel
+git
+zsh
+curl
+irb
+python-setuptools
+ruby
