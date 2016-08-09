@@ -1,0 +1,54 @@
+#!/usr/bin/env zsh
+#
+# zshrc.symlink
+#
+# @author  Denis Luchkin-Zhou <wyvernzora@gmail.com>
+# @license MIT
+#
+
+
+#
+# Default PATH
+#
+export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin"
+
+
+
+#
+# Export the dotfile root envar
+#
+export DOT_ROOT="${HOME}/.dotfiles"
+
+
+
+#
+# Export the projects path
+#
+export PROJECTS="${HOME}/Projects"
+
+
+
+#
+# Load all utilities
+#
+for util in ${DOT_ROOT}/.provision/u-*.sh; do
+  source "$util"
+done
+
+
+
+#
+# Source the .localrc if available
+#
+if [ -a "${HOME}/.localrc" ]; then
+  source "${HOME}/.localrc"
+fi
+
+
+
+#
+# Load all .onload.sh files
+#
+for onload in $(find -H '.' -maxdepth 2 -name '.onload.sh'); do
+  source "$onload"
+done
