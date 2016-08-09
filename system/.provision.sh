@@ -41,8 +41,6 @@ system-essentials() {
     if [ -z "$( "xcode-select" -p )" ]; then
       xcode-select --install
     fi
-    source system/provision.macos.sh
-
 
   fi
 
