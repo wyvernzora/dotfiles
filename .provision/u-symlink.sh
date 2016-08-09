@@ -22,7 +22,6 @@ function symlink() {
          [ "$skip_all" != true ]
       then
 
-        bb-log-debug "No action"
         local currentSrc="$(readlink $dst)"
 
         if [ "$currentSrc" == "$src" ]; then
@@ -64,22 +63,22 @@ function symlink() {
 
       if [ "$overwrite" == true ]; then
         rm -rf "$dst"
-        bb-log-info "removed $dst"
+        bb-log-misc "Removed $(ansi --faint "${dst}")"
       fi
 
       if [ "$backup" == true ]; then
         mv "$dst" "${dst}.backup"
-        bb-log-info "moved $dst to ${dst}.backup"
+        bb-log-misc "Moved $(ansi --faint "${dst}") to $(ansi --faint "${dst}.backup")"
       fi
 
       if [ "$skip" == true ]; then
-        bb-log-info "skipped $src"
+        bb-log-misc "Skipped $(ansi --faint "${src}")"
       fi
 
     fi
 
     if [ "$skip" != true ]; then
       ln -s "$1" "$2"
-      bb-log-info "linked $1 to $2"
+      bb-log-misc "Linked $(ansi --faint "${1}") to $(ansi --faint "${2}")"
     fi
 }

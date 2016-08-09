@@ -33,22 +33,30 @@ FALSE=1
 #
 # Load bash booster
 #
-source provision/bb.sh
+source .provision/bashbooster
+
 
 
 #
 # Load utilities
 #
-for util in provision/util/*.sh; do
+for util in .provision/u-*.sh; do
   source $util
+  bb-log-debug "Loaded $util"
 done
 
 
+
 #
-# Load all tasks
+# Load all package provisioning tasks
 #
-for task in provision/tasks/*.sh; do
-  source $task
+provision_all=""
+
+for package in $(find -H '.' -maxdepth 2 -name '.provision.sh'); do
+  task_name="$(basename $(dirname "$package"))-provision";
+  source $package
+  provision_all="${provision_all} ${task_name}"
+  bb-log-debug "Loaded $task_name"
 done
 
 
@@ -64,4 +72,8 @@ bb-log-error "Error"
 #
 # Start the task
 #
-bb-task-run 't-brew-pkgs'
+if [ -z "$1" ]; then
+  bb-task-run $provision_all
+else
+  bb-task-run "$1-provision"
+fi

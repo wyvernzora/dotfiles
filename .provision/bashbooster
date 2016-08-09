@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # Bash Booster 0.3beta <http://www.bashbooster.net>
 # =================================================
 #
@@ -21,7 +22,7 @@
 #
 # Load ANSI color codes
 #
-source provision/util/u-ansi.sh
+source .provision/u-ansi.sh
 
 
 ##
@@ -81,7 +82,7 @@ bb-var BB_LOG_TIME 'date +"%Y-%m-%d %H:%M:%S"'
 bb-var BB_LOG_FORMAT '${PREFIX} [${LEVEL}] ${MESSAGE}'
 bb-var BB_LOG_USE_COLOR false
 
-$BB_LOG_USE_COLOR && BB_LOG_FORMAT="\${COLOR}$(ansi --bold '${LEVEL}')\${NOCOLOR} $(ansi --faint \${MESSAGE})"
+$BB_LOG_USE_COLOR && BB_LOG_FORMAT="\${COLOR}$(ansi --bold '${LEVEL}')\${NOCOLOR} \${MESSAGE}"
 
 bb-var BB_LOG_FORMAT "$BB_LOG_DEFAULT_FORMAT"
 
@@ -141,7 +142,7 @@ bb-log-msg() {
 }
 
 bb-log-debug() {
-    bb-log-msg $BB_LOG_DEBUG "$*"
+    bb-log-msg $BB_LOG_DEBUG "$(ansi --faint "$*")"
 }
 
 bb-log-info() {
@@ -154,6 +155,10 @@ bb-log-warning() {
 
 bb-log-error() {
     bb-log-msg $BB_LOG_ERROR "$*"
+}
+
+bb-log-misc() {
+    echo "     $(ansi --faint "$*")"
 }
 
 bb-log-deprecated() {

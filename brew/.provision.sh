@@ -1,13 +1,22 @@
 #
+# brew/provision.sh
+#
+# @author  Denis Luchkin-Zhou <wyvernzora@gmail.com>
+# @license MIT
+#
+
+#
 # provision/tasks/t-brew-pkgs.sh
 #
 # @author  Denis Luchkin-Zhou <wyvernzora@gmail.com>
 # @license MIT
 #
 
-bb-task-def 't-brew-pkgs'
+bb-task-def 'brew-provision'
 
-t-brew-pkgs() {
+
+brew-provision() {
+
 
   #
   # Skip this step on platforms other than macOS
@@ -31,10 +40,10 @@ t-brew-pkgs() {
   #
   while read tap; do
     if ! bb-brew-repo? "$tap"; then
-      brew tap "$tap" > /dev/null;
-      bb-log-info "Tapped ${tap}"
+      brew tap "$tap" &> /dev/null;
+      bb-log-misc "Tapped ${tap}"
     else
-      bb-log-info "Skipped ${tap}"
+      bb-log-misc "Skipped ${tap}"
     fi
   done < brew/taps.txt;
 
@@ -48,16 +57,15 @@ t-brew-pkgs() {
     # Get the actual package name
     #
     name=$(first_arg $pkg)
-    bb-log-debug "$name"
 
     if ! bb-brew-package? "$name"; then
       #
       # No quotes around $pkg here since packages may have additional arguments
       #
-      brew install $pkg > /dev/null
-      bb-log-info "Installed ${pkg}"
+      brew install $pkg &> /dev/null
+      bb-log-misc "Installed ${pkg}"
     else
-      bb-log-info "Skipped ${pkg}"
+      bb-log-misc "Skipped ${pkg}"
     fi
   done < brew/packages.txt;
 

@@ -1,13 +1,22 @@
 #
-# provision/tasks/t-gitconfig.sh
+# git/.provision.sh
 #
 # @author  Denis Luchkin-Zhou <wyvernzora@gmail.com>
 # @license MIT
 #
 
-bb-task-def 't-gitconfig'
+bb-task-def 'git-provision'
+bb-task-def 'git-gitconfig'
 
-t-gitconfig() {
+
+git-provision() {
+
+  bb-task-depends 'git-gitconfig'
+
+}
+
+
+git-gitconfig() {
 
   if ! [ -f "git/gitconfig.symlink" ]; then
 
