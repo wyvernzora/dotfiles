@@ -7,11 +7,38 @@
 
 bb-task-def 'git-provision'
 bb-task-def 'git-gitconfig'
+bb-task-def 'git-install'
 
 
 git-provision() {
+  bb-task-depends 'git-gitconfig' 'git-install'
+}
 
-  bb-task-depends 'git-gitconfig'
+
+git-install() {
+
+  #
+  # Debian
+  #
+  if is-platform? 'debian'; then
+    bb-apt-install git
+
+
+  #
+  # CentOS/RHEL
+  #
+  elif is-platform? 'centos'; then
+    bb-yum-install git
+
+
+  #
+  # macOS
+  #
+  elif is-platform? 'darwin'; then
+    bb-brew-install git
+
+
+  fi
 
 }
 

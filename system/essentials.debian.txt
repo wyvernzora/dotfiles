@@ -1,6 +1,4 @@
 build-essential
-zsh
-git
 curl
 ruby
 python-setuptools
