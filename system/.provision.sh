@@ -8,6 +8,7 @@
 bb-task-def 'system-provision'
 bb-task-def 'system-essentials'
 bb-task-def 'system-dotfiles'
+bb-task-def 'system-zsh'
 
 
 system-provision() {
@@ -29,7 +30,7 @@ system-essentials() {
   # CentOS/RHEL
   #
   elif bb-yum?; then
-    bb-yum-install gcc gcc-c++ make openssl-devel git
+    bb-yum-install gcc gcc-c++ make openssl-devel git zsh
 
   #
   # macOS
@@ -52,8 +53,14 @@ system-dotfiles() {
   #
   for src in $(find -H '.' -maxdepth 2 -name '*.symlink'); do
     dst=".home/.$(basename "${src%.*}")"
-    bb-log-debug "$src -> $dst"
     symlink "$src" "$dst"
   done
 
+}
+
+
+system-zsh() {
+  bb-task-depends 'system-essentials' 'brew-provision'
+
+  chsh -s $(which zsh);
 }

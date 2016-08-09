@@ -1,0 +1,8 @@
+gulp-cli
+ava-cli
+nodemon
+node-inspector
+renamer
+npm-check
+trymodule
+np

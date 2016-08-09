@@ -52,7 +52,7 @@ done
 #
 provision_all=""
 
-for package in $(find -H '.' -maxdepth 2 -name '.provision.sh'); do
+for package in $(find -H '.' -maxdepth 3 -name '.provision.sh'); do
   task_name="$(basename $(dirname "$package"))-provision";
   source $package
   provision_all="${provision_all} ${task_name}"
