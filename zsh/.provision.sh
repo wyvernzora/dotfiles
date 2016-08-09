@@ -7,10 +7,11 @@
 
 bb-task-def 'zsh-provision'
 bb-task-def 'zsh-install'
+bb-task-def 'zsh-antibody'
 
 
 zsh-provision() {
-  bb-task-depends 'zsh-install'
+  bb-task-depends 'zsh-install' 'zsh-antibody'
 }
 
 
@@ -39,4 +40,21 @@ zsh-install() {
 
   fi
 
+}
+
+
+zsh-antibody() {
+  bb-task-depends 'brew-install' 'zsh-install'
+
+  if bb-brew?; then
+    brew tap getantibody/homebrew-antibody > /dev/null
+    brew install antibody > /dev/null
+
+  else
+    antibody_installer="https://raw.githubusercontent.com/getantibody/installer/master/install"
+    curl -s "${antibody_installer}" | bash -s > /dev/null
+
+  fi
+
+  bb-log-misc "Installed antibody"
 }

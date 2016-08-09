@@ -5,49 +5,52 @@
 # @license MIT
 #
 
-#
-# provision/tasks/t-brew-pkgs.sh
-#
-# @author  Denis Luchkin-Zhou <wyvernzora@gmail.com>
-# @license MIT
-#
-
 bb-task-def 'brew-provision'
-bb-task-def 'brew-taps'
+bb-task-def 'brew-install'
 bb-task-def 'brew-packages'
 bb-task-def 'brew-casks'
+bb-task-def 'brew-taps'
 
 
 brew-provision() {
+  bb-task-depends 'brew-install' 'brew-taps' 'brew-packages' 'brew-casks'
+}
 
 
-  #
-  # Skip this step on platforms other than macOS
-  #
-  if ! is-platform? 'darwin'; then
-    bb-log-info "Not running on macOS, skipping brew packages"
+#
+# Install brew
+#
+brew-install() {
+  bb-task-depends 'git-install'
+
+
+  # Skip if already available
+  if bb-exe? "brew"; then
+    brew update &> /dev/null
+    bb-log-misc "Brew updated to the latest version"
     return
   fi
 
 
-  #
-  # Fail if brew is unavailable (unlikely)
-  #
-  if ! bb-brew?; then
-    bb-log-fail "Homebrew is not available"
+  # macOS
+  if is-platform? 'darwin'; then
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+
+  # linux
+  else
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install)"
+
+
   fi
-
-
-  bb-task-depends 'brew-taps' 'brew-packages' 'brew-casks'
-
 }
-
 
 
 #
 # Install brew taps
 #
 brew-taps() {
+  bb-task-depends 'brew-install'
 
   while read tap; do
     if ! bb-brew-repo? "$tap"; then

@@ -4,3 +4,6 @@ nodejs/npmrc.symlink
 
 # .home folder used to testing
 .home
+
+# booster workspace
+.bb-workspace

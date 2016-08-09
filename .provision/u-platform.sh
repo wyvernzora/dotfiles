@@ -14,12 +14,12 @@ function is-platform? () {
   if [ "$platform" = "linux" ]; then
 
     # yum -> rhel
-    if bb-yum?; then
+    if type "yum" > /dev/null; then
       platform="centos"
     fi
 
     # apt-get -> debian
-    if bb-apt?; then
+    if type "apt-get" > /dev/null; then
       platform="debian"
     fi
 

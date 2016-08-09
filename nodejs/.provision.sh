@@ -20,8 +20,8 @@ nodejs-provision() {
 nodejs-install() {
 
   if ! bb-exe? "n"; then
-    bb-log-info "Installing n"
     curl -L http://git.io/n-install | bash -s -- -n -y > /dev/null
+    bb-log-misc "Installed n"
   fi
 
   # Load environment variables required by n
@@ -30,7 +30,7 @@ nodejs-install() {
   # Install latest LTS release of Node.js
   n lts --quiet
 
-  bb-log-info "Installed latest LTS release of Node.js"
+  bb-log-misc "Installed latest LTS release of Node.js"
 
 }
 
