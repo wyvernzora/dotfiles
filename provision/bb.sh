@@ -17,6 +17,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+
+#
+# Load ANSI color codes
+#
+source provision/util/u-ansi.sh
+
+
 ##
 # ./source/00_error.sh
 #
@@ -57,10 +64,10 @@ BB_LOG_WARNING=3
 BB_LOG_ERROR=4
 
 declare -A BB_LOG_LEVEL_NAME
-BB_LOG_LEVEL_NAME[$BB_LOG_DEBUG]='DEBUG'
+BB_LOG_LEVEL_NAME[$BB_LOG_DEBUG]='DBUG'
 BB_LOG_LEVEL_NAME[$BB_LOG_INFO]='INFO'
-BB_LOG_LEVEL_NAME[$BB_LOG_WARNING]='WARNING'
-BB_LOG_LEVEL_NAME[$BB_LOG_ERROR]='ERROR'
+BB_LOG_LEVEL_NAME[$BB_LOG_WARNING]='WARN'
+BB_LOG_LEVEL_NAME[$BB_LOG_ERROR]='FAIL'
 
 declare -A BB_LOG_LEVEL_CODE
 BB_LOG_LEVEL_CODE['DEBUG']=$BB_LOG_DEBUG
@@ -74,14 +81,14 @@ bb-var BB_LOG_TIME 'date +"%Y-%m-%d %H:%M:%S"'
 bb-var BB_LOG_FORMAT '${PREFIX} [${LEVEL}] ${MESSAGE}'
 bb-var BB_LOG_USE_COLOR false
 
-$BB_LOG_USE_COLOR && BB_LOG_FORMAT="\${COLOR}${BB_LOG_FORMAT}\${NOCOLOR}"
+$BB_LOG_USE_COLOR && BB_LOG_FORMAT="\${COLOR}$(ansi --bold '${LEVEL}')\${NOCOLOR} $(ansi --faint \${MESSAGE})"
 
 bb-var BB_LOG_FORMAT "$BB_LOG_DEFAULT_FORMAT"
 
 declare -A BB_LOG_COLORS
 BB_LOG_COLORS[$BB_LOG_DEBUG]='\e[1;30m'      # Dark Gray
-BB_LOG_COLORS[$BB_LOG_INFO]='\e[0;32m'       # Green
-BB_LOG_COLORS[$BB_LOG_WARNING]='\e[0;33m'    # Brown/Orange
+BB_LOG_COLORS[$BB_LOG_INFO]='\e[0;36m'       # Green
+BB_LOG_COLORS[$BB_LOG_WARNING]='\e[0;93m'    # Brown/Orange
 BB_LOG_COLORS[$BB_LOG_ERROR]='\e[0;31m'      # Red
 BB_LOG_COLORS['NC']='\e[0m'
 

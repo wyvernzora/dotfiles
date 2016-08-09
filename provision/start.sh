@@ -11,15 +11,16 @@
 # Get rid of CDPATH, then make sure we are in the provisioning root
 #
 unset CDPATH
-cd "$( dirname $(dirname "${BASH_SOURCE[0]}") )"
+ROOT="$( dirname $(dirname "${BASH_SOURCE[0]}") )"
+cd "${ROOT}"
 
 
 #
 # Global configuration
 #
+BB_LOG_LEVEL=1
 BB_LOG_USE_COLOR=true
 BB_WORKSPACE='.bb-workspace'
-BB_LOG_FORMAT='[${LEVEL}] ${MESSAGE}'
 
 
 #
@@ -54,7 +55,10 @@ done
 #
 # Hello World
 #
+bb-log-debug 'Debug'
 bb-log-info "Hello World"
+bb-log-warning "Warning"
+bb-log-error "Error"
 
 
 #

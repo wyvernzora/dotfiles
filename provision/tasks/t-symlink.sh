@@ -19,8 +19,9 @@ t-symlink() {
   # Symlink all *.symlink files into home directory
   #
   for src in $(find -H '.' -maxdepth 2 -name '*.symlink'); do
-    dst="$HOME/.$(basename "${src%.*}")"
-    echo $src $dst # TODO enable later
+    dst=".home/.$(basename "${src%.*}")"
+    bb-log-debug "$src -> $dst"
+    symlink "$src" "$dst"
   done
 
 }

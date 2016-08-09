@@ -32,32 +32,29 @@ fi
 
 
 #
+# Load the platform utility
+#
+source $HOME/.dotfiles/provision/util/u-platform.sh
+
+
+#
 # Update bash to at least v4
 #
-platform=$(uname | tr "[:upper:]" "[:lower:]")
-if [ "$platform" = "darwin" ]; then
+if is-platform? 'darwin'; then
 
-  # So we end up installing brew on MacOS
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-
-  # Update bash
   brew install bash
 
-else
+elif is-platform? 'centos'; then
 
-  # yum -> centos
-  if type "yum" > /dev/null; then
-    yum update bash
-  fi
+  yum update bash
 
-  # apt-get -> debian
-  if type "apt-get" > /dev/null; then
-    apt-get update
-    apt-get install --only-upgrade bash
-  fi
+elif is-platform? 'debian'; then
+
+  apt-get update
+  apt-get install --only-upgrade bash
 
 fi
-
 
 
 #

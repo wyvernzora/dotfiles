@@ -1,3 +1,6 @@
 # Ignore sensitive symlink files
 git/gitconfig.symlink
 nodejs/npmrc.symlink
+
+# .home folder used to testing
+.home

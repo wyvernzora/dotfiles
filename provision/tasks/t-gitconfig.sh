@@ -18,8 +18,8 @@ t-gitconfig() {
     fi
 
     # Ask for basic git info
-    local git_authorname=$(enter_variable " - What is your GitHub author name?" "$(whoami)")
-    local git_authoremail=$(enter_variable " - What is your GitHub author email?" "$(whoami)@gmail.com")
+    local git_authorname=$(enter_variable "What is your GitHub author name?" "$(whoami)")
+    local git_authoremail=$(enter_variable "What is your GitHub author email?" "$(whoami)@gmail.com")
 
     # Generate the actual gitconfig.symlink file
     sed -e "s/AUTHORNAME/$git_authorname/g" \

@@ -5,96 +5,81 @@
 # @license MIT
 #
 
-info () {
-    printf "  [ \033[00;34m..\033[0m ] $1"
-}
-
-user () {
-    printf "\r  [ \033[0;33m?\033[0m ] $1 "
-}
-
-success () {
-    printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
-}
-
-fail () {
-    printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
-    echo ''
-    exit
-}
-
 
 function symlink() {
-    local src=$1 dst=$2
+    local src=$1
+    local dst=$2
 
-    local overwrite= backup= skip=
+    local overwrite=
+    local backup=
+    local skip=
     local action=
 
-    if [ -f "$dst" -o -d "$dst" -o -L "$dst" ]
-    then
+    if [ -f "$dst" -o -d "$dst" -o -L "$dst" ]; then
 
-        if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]
-        then
+      if [ "$overwrite_all" != true ] && \
+         [ "$backup_all" != true ] && \
+         [ "$skip_all" != true ]
+      then
 
-            local currentSrc="$(readlink $dst)"
+        bb-log-debug "No action"
+        local currentSrc="$(readlink $dst)"
 
-            if [ "$currentSrc" == "$src" ]
-            then
+        if [ "$currentSrc" == "$src" ]; then
 
-                skip=true;
+          skip=true;
 
-            else
+        else
 
-                user "File already exists: $dst ($(basename "$src")), what do you want to do?\n\
-                [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
-                read -n 1 action
+          echo "$(ansi --bold --yellow " ?? ") File already exists: $dst ($(basename "$src")), what do you want to do?"
+          echo "$(ansi --faint "       [s]kip  [S]kip all  [o]verwrite  [O]verwrite all  [b]ackup  [B]ackup all")"
 
-                case "$action" in
-                    o )
-                    overwrite=true;;
-                    O )
-                    overwrite_all=true;;
-                    b )
-                    backup=true;;
-                    B )
-                    backup_all=true;;
-                    s )
-                    skip=true;;
-                    S )
-                    skip_all=true;;
-                    * )
-                    ;;
-                esac
+          read -n 1 -p "     Answer: " action
+          echo ""
 
-            fi
+          case "$action" in
+              o )
+              overwrite=true;;
+              O )
+              overwrite_all=true;;
+              b )
+              backup=true;;
+              B )
+              backup_all=true;;
+              s )
+              skip=true;;
+              S )
+              skip_all=true;;
+              * )
+              ;;
+          esac
 
         fi
 
-        overwrite=${overwrite:-$overwrite_all}
-        backup=${backup:-$backup_all}
-        skip=${skip:-$skip_all}
+      fi
 
-        if [ "$overwrite" == "true" ]
-        then
-            rm -rf "$dst"
-            success "removed $dst"
-        fi
+      overwrite=${overwrite:-$overwrite_all}
+      backup=${backup:-$backup_all}
+      skip=${skip:-$skip_all}
 
-        if [ "$backup" == "true" ]
-        then
-            mv "$dst" "${dst}.backup"
-            success "moved $dst to ${dst}.backup"
-        fi
+      if [ "$overwrite" == true ]; then
+        rm -rf "$dst"
+        bb-log-info "removed $dst"
+      fi
 
-        if [ "$skip" == "true" ]
-        then
-            success "skipped $src"
-        fi
+      if [ "$backup" == true ]; then
+        mv "$dst" "${dst}.backup"
+        bb-log-info "moved $dst to ${dst}.backup"
+      fi
+
+      if [ "$skip" == true ]; then
+        bb-log-info "skipped $src"
+      fi
+
     fi
 
-    if [ "$skip" != "true" ]  # "false" or empty
-    then
-        ln -s "$1" "$2"
-        success "linked $1 to $2"
+    if [ "$skip" != true ]; then
+      ln -s "$1" "$2"
+      bb-log-info "linked $1 to $2"
     fi
 }
