@@ -8,10 +8,11 @@
 bb-task-def 'zsh-provision'
 bb-task-def 'zsh-install'
 bb-task-def 'zsh-antibody'
+bb-task-def 'zsh-antibody-bundles'
 
 
 zsh-provision() {
-  bb-task-depends 'zsh-install' 'zsh-antibody'
+  bb-task-depends 'zsh-install' 'zsh-antibody' 'zsh-antibody-bundles'
 }
 
 
@@ -57,4 +58,11 @@ zsh-antibody() {
   fi
 
   bb-log-misc "Installed antibody"
+}
+
+
+zsh-antibody-bundles() {
+  bb-task-depends 'zsh-antibody'
+
+  antibody bundle < zsh/bundles.txt > /dev/null
 }
