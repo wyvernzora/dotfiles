@@ -23,19 +23,21 @@ system-essentials() {
   #
   # Debian
   #
-  if bb-apt?; then
+  if is-platform? 'debian'; then
     bb-apt-install $( tr '\n' '' < system/essentials.debian.txt )
+
 
   #
   # CentOS/RHEL
   #
-  elif bb-yum?; then
+  elif is-platform? 'centos'; then
     bb-yum-install $( tr '\n' '' < system/essentials.centos.txt )
+
 
   #
   # macOS
   #
-  elif bb-brew?; then
+  elif is-platform? 'darwin'; then
     if [ -z "$( "xcode-select" -p )" ]; then
       xcode-select --install
     fi
