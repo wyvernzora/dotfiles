@@ -1,0 +1,3 @@
+# Ignore sensitive symlink files
+git/gitconfig.symlink
+nodejs/npmrc.symlink

@@ -23,9 +23,24 @@ BB_LOG_FORMAT='[${LEVEL}] ${MESSAGE}'
 
 
 #
+# Boolean values
+#
+TRUE=0
+FALSE=1
+
+
+#
 # Load bash booster
 #
 source provision/bb.sh
+
+
+#
+# Load utilities
+#
+for util in provision/util/*.sh; do
+  source $util
+done
 
 
 #
@@ -45,4 +60,4 @@ bb-log-info "Hello World"
 #
 # Start the task
 #
-bb-task-run 'bootstrap'
+bb-task-run 't-bootstrap' 't-symlink'

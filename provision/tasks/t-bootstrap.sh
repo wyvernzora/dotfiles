@@ -1,13 +1,13 @@
 #
-# provision/tasks/build-essentials.sh
+# provision/tasks/t-bootstrap.sh
 #
 # @author  Denis Luchkin-Zhou <wyvernzora@gmail.com>
 # @license MIT
 #
 
-bb-task-def 'bootstrap'
+bb-task-def 't-bootstrap'
 
-bootstrap() {
+t-bootstrap() {
 
   #
   # Debian

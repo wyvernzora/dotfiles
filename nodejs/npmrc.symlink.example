@@ -1,0 +1,4 @@
+; Prevent npm from installing in /usr/local, use ~/.npm instead
+; so we will also need to move npm cache to a more appropriate place
+prefix = ~/.npm
+cache  = ~/.npm/cache
