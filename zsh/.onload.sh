@@ -10,7 +10,7 @@
 #
 # Initialize antibody and load bundles
 #
-source "$(antibody init)"
+source <(antibody init)
 antibody bundle < "${DOT_ROOT}/zsh/bundles.txt"
 
 

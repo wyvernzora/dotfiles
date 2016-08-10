@@ -41,6 +41,10 @@ zsh-install() {
 
   fi
 
+  # Set ZSH as login shell
+  bb-log-misc "Changing your login shell to $(which zsh)"
+  echo "$(which zsh)" | sudo tee -a /etc/shells > /dev/null
+  chsh -s $(which zsh);
 }
 
 

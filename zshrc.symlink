@@ -63,7 +63,7 @@ function is-platform () {
 #
 # Source the .localrc if available
 #
-if [ -a "${HOME}/.localrc" ]; then
+if [ -f "${HOME}/.localrc" ]; then
   source "${HOME}/.localrc"
 fi
 
@@ -72,6 +72,6 @@ fi
 #
 # Load all .onload.sh files
 #
-for onload in $(find -H '.' -maxdepth 2 -name '.onload.sh'); do
+for onload in $(find -H "${DOT_ROOT}" -maxdepth 2 -name '.onload.sh'); do
   source "$onload"
 done

@@ -65,6 +65,6 @@ alias path='echo -e ${PATH//:/\\n}'         # Echo all executable Paths
 #
 # Load additional utilities
 #
-for func in "${DOT_ROOT}/system/functions/*.sh"; do
+for func in $(find -H "${DOT_ROOT}/system/functions" -maxdepth 2 -name '*.sh'); do
   source "$func"
 done

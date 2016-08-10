@@ -8,7 +8,6 @@
 bb-task-def 'system-provision'
 bb-task-def 'system-essentials'
 bb-task-def 'system-dotfiles'
-bb-task-def 'system-zsh'
 
 
 system-provision() {
@@ -60,11 +59,4 @@ system-dotfiles() {
     symlink "$src" "$dst"
   done
 
-}
-
-
-system-zsh() {
-  bb-task-depends 'system-essentials' 'brew-provision'
-
-  chsh -s $(which zsh);
 }
