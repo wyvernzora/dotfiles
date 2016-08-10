@@ -1,0 +1,43 @@
+"*":
+  linter: {}
+  "exception-reporting":
+    userId: "12c241e4-ad21-7c4e-ed25-26182f8e4d7f"
+  welcome:
+    showOnStartup: false
+  core:
+    disabledPackages: [
+      "linter-javac"
+    ]
+    openEmptyEditorOnStart: false
+  editor:
+    invisibles: {}
+    scrollPastEnd: true
+    fontFamily: "Hack"
+    fontSize: 13
+  "atom-beautify":
+    _analyticsUserId: "2c589e06-3a07-4042-87c8-12fe7233212a"
+  "tool-bar":
+    iconSize: "32px"
+    visible: false
+  "linter-jshint": {}
+  "linter-jscs":
+    harmony: true
+    onlyConfig: true
+    verbose: true
+  "project-manager": {}
+  "tree-view":
+    hideIgnoredNames: true
+  "linter-eslint":
+    globalNodePath: "~/.npm/lib/node_modules"
+  "language-babel": {}
+  "atom-typescript": {}
+  dash:
+    grammars:
+      JavaScript: [
+        "nodejs"
+      ]
+    filenames:
+      "gulpfile.js": [
+        "gulp"
+      ]
+  docblockr: {}

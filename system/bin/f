@@ -1,0 +1,21 @@
+#!/bin/sh
+#
+# Opens finder in the specified directory.
+
+# Refuse to run on non OSX
+if is-platform? 'darwin'; then
+
+  # Check if we have args, otherwise default to cwd
+  if [ -z $1 ]; then
+    DIR=$(pwd)
+  else
+    DIR=$1
+  fi
+
+  # Open the finder there
+  open -a Finder "$DIR"
+
+else
+  echo "Cowardly refusing to run on non OS X platforms."
+  exit 1
+fi

@@ -53,7 +53,7 @@ done
 provision_all=""
 
 for package in $(find -H '.' -maxdepth 3 -name '.provision.sh'); do
-  task_name="$(basename $(dirname "$package"))-provision";
+  task_name="$(basename $(dirname "$package") ".symlink")-provision";
   source $package
   provision_all="${provision_all} ${task_name}"
   bb-log-debug "Loaded $task_name"

@@ -1,0 +1,4 @@
+
+# JS Snippets
+'.source.js':
+  '!banner': '/**\n * @author  Denis Luchkin-Zhou <${1:"wyvernzora@gmail.com"}>\n * @license MIT\n */'

@@ -1,0 +1,15 @@
+#!/bin/sh
+#
+# pubkey
+#
+# Copies the specified public key to the clipboard.
+# If none are specified, defaults to `~/.ssh/identity.rsa.pub`
+
+KEYFILE="id_rsa"
+
+if [[ -n $1 ]]
+then
+  KEYFILE=$1
+fi
+
+more "$HOME/.ssh/$KEYFILE.pub" | pbcopy | echo ">> Public key copied."

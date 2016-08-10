@@ -9,7 +9,7 @@
 #
 # Setup PATH
 #
-export PATH="./bin:$ZSH/bin:$PATH"
+export PATH="./bin:$DOT_ROOT/system/bin:$PATH"
 export MANPATH="$MANPATH"
 
 
@@ -59,3 +59,12 @@ alias .6='cd ../../../../../../'            # Go back 6 directory levels
 alias c='clear'                             # Clear terminal
 alias cwd='basename "$(pwd)" | tr -d "\n"'  # Copy current working directory
 alias path='echo -e ${PATH//:/\\n}'         # Echo all executable Paths
+
+
+
+#
+# Load additional utilities
+#
+for func in "${DOT_ROOT}/system/functions/*.sh"; do
+  source "$func"
+done

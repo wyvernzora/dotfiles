@@ -1,0 +1,16 @@
+#!/bin/sh
+#
+# Copies the specified SSH key to the authorized_keys of the specified host
+#
+
+KEYFILE="id_rsa"
+HOST=""
+
+if [[ -n $2 ]]; then
+  KEYFILE=$1
+  HOST=$2
+else
+  HOST=$1
+fi
+
+cat "$HOME/.ssh/$KEYFILE.pub" | ssh "$HOST" "mkdir -p ~/.ssh && cat >>  ~/.ssh/authorized_keys"

@@ -37,3 +37,16 @@ alias npm-i='npm install --save'
 alias npm-d='npm install --save-dev'
 alias npm-g='npm install --global'
 alias nrd='npm run dev'
+
+
+#
+# Utility function
+#
+
+
+#
+# Heroku-bunyan log watcher
+#
+heronyan() {
+  heroku logs $@ | sed 's/.*app\[web\..*\]\: //' | bunyan
+}

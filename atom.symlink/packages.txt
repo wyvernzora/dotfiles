@@ -1,0 +1,5 @@
+atom-beautify
+docblockr
+file-icons
+linter
+linter-eslint
