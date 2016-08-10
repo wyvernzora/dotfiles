@@ -51,7 +51,7 @@ compinit
 #
 # Load completion files
 #
-for completion in $(find -H '.' -maxdepth 2 -name '.completion.sh'); do
+for completion in $(find -H "${DOT_ROOT}" -maxdepth 2 -name '.completion.sh'); do
   source "$completion"
 done
 

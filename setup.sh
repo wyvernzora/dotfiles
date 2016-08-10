@@ -9,6 +9,13 @@
 
 
 #
+# DOT_ROOT?
+#
+DOT_ROOT=${DOR_ROOT:-"$HOME/.dotfiles"}
+
+
+
+#
 # Detect git installation
 #
 if ! type "git" > /dev/null; then
@@ -21,20 +28,20 @@ fi
 #
 # Clone or pull depending on situation
 #
-if [[ -d $HOME/.dotfiles ]]; then
+if [ -d $DOT_ROOT ]; then
   (
-    cd $HOME/.dotfiles;
+    cd $DOT_ROOT;
     git pull;
   )
 else
-  git clone https://github.com/jluchiji/dotfiles $HOME/.dotfiles
+  git clone https://github.com/jluchiji/dotfiles $DOT_ROOT
 fi
 
 
 #
 # Load the platform utility
 #
-source $HOME/.dotfiles/provision/util/u-platform.sh
+source $DOT_ROOT/.provision/u-platform.sh
 
 
 #
@@ -60,4 +67,4 @@ fi
 #
 # Run the provisioner
 #
-$HOME/.dotfiles/provision/start.sh;
+$DOT_ROOT/.provision/start.sh;
