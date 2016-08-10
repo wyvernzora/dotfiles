@@ -20,7 +20,7 @@ nodejs-provision() {
 nodejs-install() {
 
   if ! bb-exe? "n"; then
-    curl -L http://git.io/n-install | bash -s -- -n -y &> /dev/null
+    curl -L http://git.io/n-install | bash -s -- --quiet -n -y
     bb-log-misc "Installed n"
   fi
 
@@ -28,7 +28,7 @@ nodejs-install() {
   source nodejs/.onload.sh
 
   # Install latest LTS release of Node.js
-  n lts --quiet &> /dev/null
+  n --quiet lts
 
   bb-log-misc "Installed latest LTS release of Node.js"
 
@@ -46,10 +46,10 @@ nodejs-npmi() {
 
   bb-task-depends 'nodejs-npmrc' 'nodejs-install'
 
-  npm install --global npm --no-progress --silent > /dev/null;
+  npm install --global npm --no-progress --no-spin --silent > /dev/null;
 
   while read package; do
-    npm install --global "$package" --no-progress --silent > /dev/null;
+    npm install --global "$package" --no-progress --no-spin --silent > /dev/null;
     bb-log-misc "Installed ${package}"
   done < nodejs/packages.txt;
 
