@@ -55,7 +55,8 @@ system-dotfiles() {
   # Symlink all *.symlink files into home directory
   #
   for src in $(find -H '.' -maxdepth 2 -name '*.symlink'); do
-    dst=".home/.$(basename "${src%.*}")"
+    src="$(pwd)/$src"
+    dst="$HOME/.$(basename "${src%.*}")"
     symlink "$src" "$dst"
   done
 

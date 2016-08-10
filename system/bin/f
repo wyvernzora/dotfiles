@@ -3,7 +3,7 @@
 # Opens finder in the specified directory.
 
 # Refuse to run on non OSX
-if is-platform? 'darwin'; then
+if is-platform 'darwin'; then
 
   # Check if we have args, otherwise default to cwd
   if [ -z $1 ]; then

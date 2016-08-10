@@ -67,4 +67,4 @@ fi
 #
 # Run the provisioner
 #
-$DOT_ROOT/.provision/start.sh;
+$DOT_ROOT/.provision/start;
