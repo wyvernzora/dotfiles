@@ -20,7 +20,7 @@ nodejs-provision() {
 nodejs-install() {
 
   if ! bb-exe? "n"; then
-    curl -L http://git.io/n-install | bash -s -- --quiet -n -y
+    curl -L http://git.io/n-install | bash -s -- -n -y > /dev/null
     bb-log-misc "Installed n"
   fi
 
