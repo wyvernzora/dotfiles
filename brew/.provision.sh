@@ -95,10 +95,25 @@ brew-packages() {
 
 
 #
-# TODO Install cask packages
+# Install cask packages
 #
 brew-casks() {
-
   bb-task-depends 'brew-packages'
+
+  while read pkg; do
+
+    #
+    # Get the actual package name
+    #
+    name=$(first_arg $pkg)
+
+
+    #
+    # No quotes around $pkg here since packages may have additional arguments
+    #
+    brew cask install $pkg &> /dev/null
+    bb-log-misc "Installed ${pkg}"
+
+  done < brew/casks.txt;
 
 }

@@ -6,10 +6,11 @@
 #
 bb-task-def 'macos-provision'
 bb-task-def 'macos-defaults'
+bb-task-def 'macos-apps'
 
 
 macos-provision() {
-  bb-task-depends 'macos-defaults'
+  bb-task-depends 'macos-defaults' 'macos-apps'
 }
 
 
@@ -45,5 +46,36 @@ macos-defaults() {
   # Display crash dialogs as notifications
   bb-log-misc "Setting up crash reporter notifications"
   defaults write com.apple.CrashReporter UseUNC 1
+
+}
+
+
+macos-apps() {
+  bb-task-depends 'brew-packages'
+
+  #
+  # Ask for apple id
+  #
+  local email=$(enter_variable "AppleID email")
+  local passd=$(enter_variable_hidden "AppleID password")
+
+  mas signin "$email" "$password"
+
+  while read app; do
+
+    #
+    # Get rid of the app name, only keep the ID
+    #
+    id=$(first_arg $app)
+
+    #
+    # Install the app via mas
+    #
+    mas install "$id"
+
+
+    bb-log-misc "Installed $app"
+
+  done < macos/apps.txt
 
 }
