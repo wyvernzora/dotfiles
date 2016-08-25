@@ -7,6 +7,7 @@ vlc
 nylas-n1
 steam
 mplayerx
+transmission
 kaleidoscope
 font-input
 font-open-sans
