@@ -69,13 +69,30 @@ macos-apps() {
     id=$(first_arg $app)
 
     #
-    # Install the app via mas
+    # Check if already installed
     #
-    mas install "$id"
+    if macos-is-installed? "$id"; then
 
+      #
+      # Install the app via mas
+      #
+      mas install "$id"
+      bb-log-misc "Installed $app"
 
-    bb-log-misc "Installed $app"
+    else
+
+      bb-log-misc "Skipped $app"
+
+    fi
 
   done < macos/apps.txt
 
+}
+
+
+function macos-is-installed? () {
+  if [ -z "$(mas list | grep "$1 ")" ]; then
+    return ${TRUE}
+  fi
+  return ${FALSE}
 }
