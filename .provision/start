@@ -38,6 +38,25 @@ source .provision/bashbooster
 
 
 #
+# Ask for admin password in advance
+#
+bb-log-info "Some provisioning operation will require root access"
+sudo -v
+
+
+
+#
+# Keep refreshing sudo timestamp until provisioner exits
+#
+while true; do
+  sudo -n true
+  sleep 60
+  kill -0 "$$" || exit
+done 2> /dev/null &
+
+
+
+#
 # Load utilities
 #
 for util in .provision/u-*.sh; do

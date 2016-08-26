@@ -28,36 +28,40 @@ macos-preferences() {
 
 macos-defaults() {
 
-  # Show the ~/Library folder.
-  bb-log-misc "Unhiding the ~/Library"
-  chflags nohidden ~/Library
+  bb-log-misc "Setting up general defaults"
+  source macos/defaults/general.sh
 
+  bb-log-misc "Setting up SSD-specific defaults"
+  source macos/defaults/ssd.sh
 
-  # Set the Finder prefs for showing a few different volumes on the Desktop.
-  bb-log-misc "Setting Finder preferences"
-  defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
-  defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
+  bb-log-misc "Setting up peripherals defaults"
+  source macos/defaults/peripherals.sh
 
+  bb-log-misc "Setting up screen defaults"
+  source macos/defaults/screen.sh
 
-  # Set up Safari for development.
-  bb-log-misc "Setting Safari preferences"
-  defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
-  defaults write com.apple.Safari IncludeDevelopMenu -bool true
-  defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
-  defaults write com.apple.Safari "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" -bool true
-  defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
+  bb-log-misc "Setting up Finder defaults"
+  source macos/defaults/finder.sh
 
+  bb-log-misc "Setting up Dock defaults"
+  source macos/defaults/dock.sh
 
-  # Disable guest access
+  bb-log-misc "Setting up Safari defaults"
+  source macos/defaults/safari.sh
+
+  bb-log-misc "Setting up Spotlight defaults"
+  source macos/defaults/spotlight.sh
+
+  bb-log-misc "Setting up AppStore defaults"
+  source macos/defaults/app-store.sh
+
+  bb-log-misc "Setting up app defaults"
+  source macos/defaults/apps.sh
+
   bb-log-misc "Disabling guest account"
   sudo defaults write /Library/Preferences/com.apple.AppleFileServer guestAccess -bool NO
   sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server AllowGuestAccess -bool NO
   sudo defaults write /Library/Preferences/com.apple.loginwindow GuestEnabled -bool NO
-
-
-  # Display crash dialogs as notifications
-  bb-log-misc "Setting up crash reporter notifications"
-  defaults write com.apple.CrashReporter UseUNC 1
 
 }
 
