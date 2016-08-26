@@ -7,3 +7,10 @@ nodejs/npmrc.symlink
 
 # booster workspace
 .bb-workspace
+
+# Ignore Atom files
+atom.symlink/.*
+atom.symlink/blob-store
+atom.symlink/compile-cache
+atom.symlink/packages
+atom.symlink/storage
