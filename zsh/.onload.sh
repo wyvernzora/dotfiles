@@ -6,12 +6,21 @@
 #
 
 
+#
+# Fix the branch non-expansion bug
+#
+setopt prompt_subst
+setopt autocd
+
+
 
 #
 # Initialize antibody and load bundles
 #
 source <(antibody init)
-antibody bundle < "${DOT_ROOT}/zsh/bundles.txt"
+while read bundle; do
+  antibody bundle "${bundle}"
+done < "${DOT_ROOT}/zsh/bundles.txt";
 
 
 
@@ -35,6 +44,9 @@ alias reload!='. ~/.zshrc'
 
 # Updates the .dotfiles
 alias update!='(cd $DOT_ROOT > /dev/null; git pull;); reload!'
+
+# Provisioner alias
+alias provision!='$DOT_ROOT/.provision/start'
 
 # Fix sudo + alias bug
 alias sudo='sudo '
