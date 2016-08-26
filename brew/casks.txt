@@ -7,6 +7,9 @@ vlc
 nylas-n1
 steam
 mplayerx
+gpgtools
+veracrypt
+tower
 transmission
 kaleidoscope
 font-input
