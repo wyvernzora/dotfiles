@@ -5,12 +5,24 @@
 # @license MIT
 #
 bb-task-def 'macos-provision'
+bb-task-def 'macos-preferences'
 bb-task-def 'macos-defaults'
 bb-task-def 'macos-apps'
 
 
 macos-provision() {
-  bb-task-depends 'macos-defaults' 'macos-apps'
+  bb-task-depends 'macos-preferences' 'macos-defaults' 'macos-apps'
+}
+
+
+macos-preferences() {
+
+  for pref in $DOT_ROOT/macos/preferences/*; do
+    src="${pref}"
+    dst="${HOME}/Library/Preferences/$(basename "${pref}")"
+    symlink "$src" "$dst"
+  done
+
 }
 
 
