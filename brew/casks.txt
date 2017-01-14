@@ -12,6 +12,7 @@ veracrypt
 tower
 transmission
 kaleidoscope
+font-hack
 font-input
 font-open-sans
 font-roboto
