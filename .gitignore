@@ -6,6 +6,8 @@
 .zshenv.local
 .zprofile.local
 .zshrc.local
+.gitconfig.local
+.gitconfig.user.local
 
 # Common zsh runtime files.
 .zcompdump*

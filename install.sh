@@ -24,6 +24,27 @@ link_dotfile() {
   printf 'Linked: %s -> %s\n' "$target_path" "$source_path"
 }
 
+link_optional_dotfile() {
+  name="$1"
+
+  if [ -e "$repo_dir/$name" ] || [ -L "$repo_dir/$name" ]; then
+    link_dotfile "$name"
+  else
+    printf 'Skipping missing optional file: %s\n' "$repo_dir/$name"
+  fi
+}
+
 link_dotfile ".zshenv"
 link_dotfile ".zprofile"
 link_dotfile ".zshrc"
+link_dotfile ".gitconfig"
+link_optional_dotfile ".gitconfig.user.local"
+
+case "$(uname -s)" in
+  Darwin)
+    link_dotfile ".gitconfig.macos"
+    ;;
+  *)
+    printf 'Skipping macOS git signing config on this platform.\n'
+    ;;
+esac

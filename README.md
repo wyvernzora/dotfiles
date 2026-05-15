@@ -7,6 +7,8 @@ A small starter repo for zsh-focused dotfiles.
 - `.zshenv` is loaded by every zsh process. Keep it fast, quiet, and limited to environment variables.
 - `.zprofile` is loaded by login shells. Put PATH setup and login-only initialization here.
 - `.zshrc` is loaded by interactive shells. Put prompt, completion, aliases, and shell ergonomics here.
+- `.gitconfig` contains shared git defaults, aliases, and merge/diff settings.
+- `.gitconfig.macos` contains macOS-only git signing settings.
 - `zsh/aliases.zsh` is an optional place for shared aliases.
 
 ## Install
@@ -17,7 +19,7 @@ Run the installer from this repo:
 ./install.sh
 ```
 
-It creates symlinks in your home directory for `.zshenv`, `.zprofile`, and `.zshrc`. Existing files are moved aside with a timestamped `.backup-*` suffix.
+It creates symlinks in your home directory for `.zshenv`, `.zprofile`, `.zshrc`, and `.gitconfig`. On macOS, it also links `.gitconfig.macos`. Existing files are moved aside with a timestamped `.backup-*` suffix.
 
 ## Local Overrides
 
@@ -26,5 +28,16 @@ Machine-specific files are intentionally ignored by git:
 - `~/.zshenv.local`
 - `~/.zprofile.local`
 - `~/.zshrc.local`
+- `~/.gitconfig.user.local`
+- `~/.gitconfig.local`
 
 Use those for secrets, private paths, and one-off machine settings.
+
+Put git identity and personal signing keys in `~/.gitconfig.user.local`:
+
+```gitconfig
+[user]
+        name = Your Name
+        email = you@example.com
+        signingkey = ssh-ed25519 ...
+```
