@@ -26,19 +26,29 @@ link_dotfile() {
 
 link_optional_dotfile() {
   name="$1"
+  source_path="$repo_dir/$name"
+  target_path="$HOME/$name"
 
-  if [ -e "$repo_dir/$name" ] || [ -L "$repo_dir/$name" ]; then
+  if [ -e "$source_path" ] || [ -L "$source_path" ]; then
+    link_dotfile "$name"
+  elif [ -e "$target_path" ] || [ -L "$target_path" ]; then
+    mv "$target_path" "$source_path"
+    printf 'Adopted local file into repo: %s -> %s\n' "$target_path" "$source_path"
     link_dotfile "$name"
   else
-    printf 'Skipping missing optional file: %s\n' "$repo_dir/$name"
+    printf 'Skipping missing optional file: %s\n' "$source_path"
   fi
 }
 
 link_dotfile ".zshenv"
+link_optional_dotfile ".zshenv.local"
 link_dotfile ".zprofile"
+link_optional_dotfile ".zprofile.local"
 link_dotfile ".zshrc"
+link_optional_dotfile ".zshrc.local"
 link_dotfile ".gitconfig"
 link_optional_dotfile ".gitconfig.user.local"
+link_optional_dotfile ".gitconfig.local"
 
 case "$(uname -s)" in
   Darwin)

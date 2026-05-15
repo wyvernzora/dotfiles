@@ -19,7 +19,7 @@ Run the installer from this repo:
 ./install.sh
 ```
 
-It creates symlinks in your home directory for `.zshenv`, `.zprofile`, `.zshrc`, and `.gitconfig`. On macOS, it also links `.gitconfig.macos`. Existing files are moved aside with a timestamped `.backup-*` suffix.
+It creates symlinks in your home directory for `.zshenv`, `.zprofile`, `.zshrc`, and `.gitconfig`. On macOS, it also links `.gitconfig.macos`. If ignored local files exist in the repo, it links those too. If local files already exist in `$HOME`, it adopts them into the repo first. Existing shared files are moved aside with a timestamped `.backup-*` suffix.
 
 ## Local Overrides
 
@@ -31,7 +31,7 @@ Machine-specific files are intentionally ignored by git:
 - `~/.gitconfig.user.local`
 - `~/.gitconfig.local`
 
-Use those for secrets, private paths, and one-off machine settings.
+Keep those files in this repo as ignored files, then run `./install.sh` to symlink them into `$HOME`. Use them for secrets, private paths, and one-off machine settings.
 
 Put git identity and personal signing keys in `~/.gitconfig.user.local`:
 
