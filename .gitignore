@@ -1,0 +1,13 @@
+.DS_Store
+*.swp
+*.swo
+
+# Keep machine-specific shell settings out of git.
+.zshenv.local
+.zprofile.local
+.zshrc.local
+
+# Common zsh runtime files.
+.zcompdump*
+.zsh_history
+.zsh_sessions/
